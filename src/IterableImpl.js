@@ -468,9 +468,11 @@ IterablePrototype.contains = IterablePrototype.includes;
           try {
             throw new Error();
           } catch (error) {
-            stack = error.stack;
+            if ('stack' in error) {
+              stack = error.stack;
+            }
           }
-          if (stack.indexOf('_wrapObject') === -1) {
+          if (stack && stack.indexOf('_wrapObject') === -1) {
             console && console.warn && console.warn(
               'iterable.length has been deprecated, '+
               'use iterable.size or iterable.count(). '+
